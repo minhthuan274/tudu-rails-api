@@ -14,8 +14,18 @@ class TodosController < ApplicationController
     end
   end
 
+  def mark_all_done
+    if params[:task_id] 
+      @task = Task.find(params[:task_id])
+      @todos = @task.todos
+      @todos.each { |e| e.set_done }
+    end
+
+    head :ok
+  end
+
   def update
-    @todo.update_attribute(:isComplete, true);
+    @todo.set_done
     head :ok
   end
 
